@@ -101,5 +101,6 @@ def generateSimple(n_bit):
             print('Thats is simple')
             flag = False
             return random_p
+if __name__ == '__main__':
 
-print(generateSimple(100))
+    print(generateSimple(100))

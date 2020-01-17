@@ -1,21 +1,61 @@
-def hash1(*args, n_bit = 400):
-    n_max = pow(2, n_bit)
-    res = 0
+def hashForAll(*args, n_bit = 30):
+    res = ''
     for A in args:
-        res += int("".join([str(ord(i)) for i in str(A)]))
-    return res % n_max
+        res += "".join([str(ord(i)) for i in str(A)])
+    batch = (n_bit // 3) + 1
+    D = [int(res[i:i+batch]) for i in range(0, len(res), batch)]
+    E = int("1"*batch)
+    for i in D:
+        E = E ^ i
+    F = E % pow(2, n_bit-1) + pow(2, n_bit) - 1
+    return F
 
-def hash2(A):
+def hashForNumbers(*args, n_bit = 30):
     import math
-    n_max = pow(2, 500)
-    res = [math.sin(int(i))+math.cos(int(i)) for i in str(A)]
-    sum = 0
-    for i in res:
-        sum += i
+    h = 0x811c9dc5
+    if n_bit > 10:
+        str_ = list("0" * n_bit)
+        str_[0] = '1'
+        delta = int("".join(str_),2) + 403
+    else:
+        delta = 403
 
-    return round(n_max - int(sum))
+    B = "".join(str(i) for i in args)
+    for i in B:
+        h = (h ^ int(i)) * delta
+    F = h % pow(2, n_bit-1) + pow(2, n_bit) - 1
+    return F
+if __name__ == '__main__':
 
-print(hash1(123452124322222878823, 1234521325325326326236236436223))
-print(hash2(1234521325325326326236236436223))
-print(hash1('3213de', '2dewq'))
-# for i in range()
+    # print(hash1(123452124322222878823, 1234521325325326326236236436223))
+    print(hashForNumbers(123452124322222878823, 1234521325325326326236236436223))
+    print(hashForAll('passswored', 'dweqd231dew', '31ddwd22'))
+    H = hashForNumbers
+    # H = hashForAll
+    max = 10000
+    flag = False
+    for i in range(max):
+            print(i)
+            for j in range(max):
+                # print(H(j))
+
+                #необратимость
+                if i != j:
+                    if H(j) == i:
+                        print(i, j)
+                        print("Необратимость нарушена")
+                        flag = True
+                    #коллизии 1 уровня
+                    if H(i) == j:
+                        print(i, j)
+                        print("Коллизия 1")
+                        flag = True
+                    #коллизии 2
+                    if H(i) == H(j):
+                        print(i, j)
+                        print("Коллизия 2")
+                        flag = True
+                if flag: break
+            if flag: break
+
+    print(H(2), H(1))
