@@ -53,7 +53,8 @@ def Eratosphen(n):
         flag = p_last != p
     return list
 
-def Erat_test(p,simple):
+def Erat_test(p):
+    simple = Eratosphen(2000)
     flag = True
     for i in simple:
         if p != i and p % i == 0:
@@ -61,8 +62,29 @@ def Erat_test(p,simple):
             break
     return flag
 
+def Rabin_tests_ansamb(random_p, epoches):
+    test_flag = True
+    for i in range(epoches):
+        if not (Rabin_test(random_p)):
+            print('Rabin test fail')
+            test_flag = False
+            break
+        else:
+            print('Rabin test passed')
+    return  test_flag
+
+def isSimple(random_p):
+    if not (Erat_test(random_p)):
+        print('Erat test fail')
+        return False
+    else:
+        print('Erat test passed')
+
+    return Rabin_tests_ansamb(random_p, 5)
+
+
 def generateSimple(n_bit):
-    simple2000 = Eratosphen(2000)
+
     mask = list("0" * n_bit)
     mask[0] = "1"
     mask[-1] = "1"
@@ -75,20 +97,7 @@ def generateSimple(n_bit):
         random_p = random_p | mask
         print(random_p)
 
-        if not(Erat_test(random_p,simple2000)):
-            print('Erat test fail')
-            continue
-        else: print('Erat test passed')
-
-        test_flag = True
-        for i in range(5):
-            if not(Rabin_test(random_p)):
-                print('Rabin test fail')
-                test_flag = False
-                break
-            else: print('Rabin test passed')
-
-        if test_flag:
+        if isSimple(random_p):
             print('Thats is simple')
             flag = False
             return random_p
