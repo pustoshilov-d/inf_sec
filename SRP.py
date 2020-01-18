@@ -18,7 +18,8 @@ while not(isSimple(N)):
 print('\n')
 k = 3 #as for 6 version
 H = hashForAll #hash-function
-g = generateSimple(n_bit) #generator
+# g = generateSimple(n_bit) #generator
+g = 3
 global_print("H", "N", "g", "k")
 
 #server
