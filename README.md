@@ -1,6 +1,7 @@
 # inf_sec
-Realization of Information Security algorithms. 
+Own realization of Information Security algorithms. 
 
-Popular encryption algorithms:
-- Diffie–Hellman key exchange
-- 
+Popular algorithms:
+- [Decoding Caesar's cipher using the frequency of letters and bigrams](https://github.com/pustoshilov-d/inf_sec/blob/master/Cesar.py)
+- [Diffie–Hellman key exchange](https://github.com/pustoshilov-d/inf_sec/blob/master/DeffiHelmana.py)
+- [Diffie–Hellman key exchange]()
